@@ -1,4 +1,4 @@
-package com.example.android.sunshine.app.sync;
+package net.maarti.simpleweather.sync;
 
 import android.app.Service;
 import android.content.Intent;

@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.example.android.sunshine.app;
+package net.maarti.simpleweather;
 
 import android.content.Intent;
 import android.database.Cursor;
@@ -33,8 +33,10 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
-import com.example.android.sunshine.app.data.WeatherContract;
-import com.example.android.sunshine.app.sync.SunshineSyncAdapter;
+import com.maarti.simpleweather.R;
+
+import net.maarti.simpleweather.data.WeatherContract;
+import net.maarti.simpleweather.sync.SunshineSyncAdapter;
 
 /**
  * Encapsulates fetching the forecast and displaying it as a {@link ListView} layout.

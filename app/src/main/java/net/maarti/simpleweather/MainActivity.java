@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.example.android.sunshine.app;
+package net.maarti.simpleweather;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -22,7 +22,9 @@ import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.example.android.sunshine.app.sync.SunshineSyncAdapter;
+import com.maarti.simpleweather.R;
+
+import net.maarti.simpleweather.sync.SunshineSyncAdapter;
 
 public class MainActivity extends ActionBarActivity implements ForecastFragment.Callback {
 

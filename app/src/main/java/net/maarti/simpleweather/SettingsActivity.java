@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.example.android.sunshine.app;
+package net.maarti.simpleweather;
 
 import android.annotation.TargetApi;
 import android.content.Intent;
@@ -23,6 +23,8 @@ import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceManager;
+
+import com.maarti.simpleweather.R;
 
 /**
  * A {@link PreferenceActivity} that presents a set of application settings.

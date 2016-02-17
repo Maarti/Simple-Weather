@@ -13,12 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.example.android.sunshine.app;
+package net.maarti.simpleweather;
 
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.text.format.Time;
+
+import com.maarti.simpleweather.R;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;

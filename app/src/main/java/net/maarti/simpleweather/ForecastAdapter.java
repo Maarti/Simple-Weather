@@ -1,4 +1,4 @@
-package com.example.android.sunshine.app;
+package net.maarti.simpleweather;
 
 import android.content.Context;
 import android.database.Cursor;
@@ -8,6 +8,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.maarti.simpleweather.R;
 
 /**
  * {@link ForecastAdapter} exposes a list of weather forecasts

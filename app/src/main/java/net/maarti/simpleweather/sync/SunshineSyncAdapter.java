@@ -1,4 +1,4 @@
-package com.example.android.sunshine.app.sync;
+package net.maarti.simpleweather.sync;
 
 import android.accounts.Account;
 import android.accounts.AccountManager;
@@ -27,11 +27,12 @@ import android.support.v4.app.TaskStackBuilder;
 import android.text.format.Time;
 import android.util.Log;
 
-import com.example.android.sunshine.app.BuildConfig;
-import com.example.android.sunshine.app.MainActivity;
-import com.example.android.sunshine.app.R;
-import com.example.android.sunshine.app.Utility;
-import com.example.android.sunshine.app.data.WeatherContract;
+import com.maarti.simpleweather.BuildConfig;
+import com.maarti.simpleweather.R;
+
+import net.maarti.simpleweather.MainActivity;
+import net.maarti.simpleweather.Utility;
+import net.maarti.simpleweather.data.WeatherContract;
 
 import org.json.JSONArray;
 import org.json.JSONException;

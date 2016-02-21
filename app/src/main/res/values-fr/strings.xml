@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:xliff="http://schemas.android.com/apk/res-auto">
+    <string name="app_name">Simple Weather</string>
+    <string name="north">N</string>
+    <string name="north_east">NE</string>
+    <string name="north_west">NO</string>
+    <string name="pref_enable_notifications_label">Notifications météo</string>
+    <string name="action_map">Emplacement sur la carte</string>
+    <string name="action_refresh">Rafraîchir</string>
+    <string name="action_settings">Paramètres</string>
+    <string name="action_share">Partager</string>
+    <string name="east">E</string>
+    <string name="format_humidity">Humidité : <xliff:g id="humidity">%1.0f</xliff:g> %%</string>
+    <string name="format_notification">Prévisions : <xliff:g id="condition">%1$s</xliff:g> Max: <xliff:g id="high">%2$s</xliff:g> Min: <xliff:g id="low">%3$s</xliff:g></string>
+    <string name="format_pressure">Pression : <xliff:g id="pressure">%1.0f</xliff:g> hPa</string>
+    <string name="format_wind_kmh">Vent : <xliff:g id="speed">%1$1.0f</xliff:g> km/h <xliff:g id="direction">%2$s</xliff:g></string>
+    <string name="format_wind_mph">Vent : <xliff:g id="speed">%1$1.0f</xliff:g> mph <xliff:g id="direction">%2$s</xliff:g></string>
+    <string name="pref_enable_notifications_true">Activées</string>
+    <string name="pref_location_dialogmsg">Entrez votre code postal ou le nom de votre ville, suivi du code de votre pays (ex : "Paris,FR" - "94043,US" - "Madrid,ES").</string>
+    <string name="pref_location_label">Emplacement</string>
+    <string name="pref_units_label">Unité de température</string>
+    <string name="pref_units_label_imperial">Impériale</string>
+    <string name="pref_units_label_metric">Métrique</string>
+    <string name="south">S</string>
+    <string name="south_east">SE</string>
+    <string name="south_west">SO</string>
+    <string name="title_activity_detail">Détails</string>
+    <string name="title_activity_settings">Paramètres</string>
+    <string name="toast_must_enter_location">Vous devez saisir un emplacement dans les paramètres.</string>
+    <string name="today">Aujourd\'hui</string>
+    <string name="tomorrow">Demain</string>
+    <string name="unknown">Inconnu</string>
+    <string name="west">O</string>
+</resources>

@@ -27,12 +27,28 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Utility {
+
+    private static String PREF_CITYNAME_KEY = "pref_city_name";
+
     public static String getPreferredLocation(Context context) {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
         return prefs.getString(context.getString(R.string.pref_location_key),
                 context.getString(R.string.pref_location_default));
     }
 
+    // Set the city name returned by the API corresponding of the prefered location
+    public static void setPreferredLocationName(Context context, String cityName) {
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        prefs.edit().putString(PREF_CITYNAME_KEY,cityName).apply();
+    }
+
+    // Set the city name returned by the API corresponding of the prefered location
+    public static String getPreferredLocationName(Context context) {
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        return prefs.getString(PREF_CITYNAME_KEY,"");
+    }
+
+    // Get the city name returned by the API corresponding of the prefered location
     public static boolean isMetric(Context context) {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
         return prefs.getString(context.getString(R.string.pref_units_key),
@@ -97,7 +113,9 @@ public class Utility {
         } else {
             // Otherwise, use the form "Mon Jun 3"
             SimpleDateFormat shortenedDateFormat = new SimpleDateFormat("EEE MMM dd");
-            return shortenedDateFormat.format(dateInMillis);
+            String formatted = shortenedDateFormat.format(dateInMillis);
+            // First letter uppercase
+            return formatted.substring(0, 1).toUpperCase() + formatted.substring(1) ;
         }
     }
 
@@ -126,7 +144,9 @@ public class Utility {
             time.setToNow();
             // Otherwise, the format is just the day of the week (e.g "Wednesday".
             SimpleDateFormat dayFormat = new SimpleDateFormat("EEEE");
-            return dayFormat.format(dateInMillis);
+            String dayFormatted = dayFormat.format(dateInMillis);
+            // First letter upercase
+            return dayFormatted.substring(0, 1).toUpperCase() + dayFormatted.substring(1);
         }
     }
 
@@ -143,7 +163,7 @@ public class Utility {
         SimpleDateFormat dbDateFormat = new SimpleDateFormat(Utility.DATE_FORMAT);
         SimpleDateFormat monthDayFormat = new SimpleDateFormat("MMMM dd");
         String monthDayString = monthDayFormat.format(dateInMillis);
-        return monthDayString;
+        return monthDayString.substring(0, 1).toUpperCase() + monthDayString.substring(1);
     }
 
     public static String getFormattedWind(Context context, float windSpeed, float degrees) {
@@ -158,23 +178,23 @@ public class Utility {
         // From wind direction in degrees, determine compass direction as a string (e.g NW)
         // You know what's fun, writing really long if/else statements with tons of possible
         // conditions.  Seriously, try it!
-        String direction = "Unknown";
+        String direction = context.getString(R.string.unknown);
         if (degrees >= 337.5 || degrees < 22.5) {
-            direction = "N";
+            direction = context.getString(R.string.north);
         } else if (degrees >= 22.5 && degrees < 67.5) {
-            direction = "NE";
+            direction = context.getString(R.string.north_east);
         } else if (degrees >= 67.5 && degrees < 112.5) {
-            direction = "E";
+            direction = context.getString(R.string.east);
         } else if (degrees >= 112.5 && degrees < 157.5) {
-            direction = "SE";
+            direction = context.getString(R.string.south_east);
         } else if (degrees >= 157.5 && degrees < 202.5) {
-            direction = "S";
+            direction = context.getString(R.string.south);
         } else if (degrees >= 202.5 && degrees < 247.5) {
-            direction = "SW";
+            direction = context.getString(R.string.south_west);
         } else if (degrees >= 247.5 && degrees < 292.5) {
-            direction = "W";
+            direction = context.getString(R.string.west);
         } else if (degrees >= 292.5 && degrees < 337.5) {
-            direction = "NW";
+            direction = context.getString(R.string.north_west);
         }
         return String.format(context.getString(windFormat), windSpeed, direction);
     }

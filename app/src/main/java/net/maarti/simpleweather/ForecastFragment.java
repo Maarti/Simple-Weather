@@ -260,6 +260,9 @@ public class ForecastFragment extends Fragment implements LoaderManager.LoaderCa
             // to, do so now.
             mListView.smoothScrollToPosition(mPosition);
         }
+        // on affiche le nom de la ville retournée par l'API
+        String locationName = Utility.getPreferredLocationName(getActivity().getApplicationContext());
+        getActivity().setTitle(locationName);
     }
 
     @Override

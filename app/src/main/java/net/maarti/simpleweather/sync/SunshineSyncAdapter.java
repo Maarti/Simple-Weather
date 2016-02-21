@@ -68,6 +68,7 @@ public class SunshineSyncAdapter extends AbstractThreadedSyncAdapter {
     private static final int INDEX_MAX_TEMP = 1;
     private static final int INDEX_MIN_TEMP = 2;
     private static final int INDEX_SHORT_DESC = 3;
+    private static final int INDEX_CITY_NAME = 4;
 
     public SunshineSyncAdapter(Context context, boolean autoInitialize) {
         super(context, autoInitialize);
@@ -84,7 +85,7 @@ public class SunshineSyncAdapter extends AbstractThreadedSyncAdapter {
         BufferedReader reader = null;
 
         // Will contain the raw JSON response as a string.
-        String forecastJsonStr = null;
+        String forecastJsonStr;
 
         String format = "json";
         String units = "metric";
@@ -159,7 +160,6 @@ public class SunshineSyncAdapter extends AbstractThreadedSyncAdapter {
                 }
             }
         }
-        return;
     }
 
     /**
@@ -212,6 +212,9 @@ public class SunshineSyncAdapter extends AbstractThreadedSyncAdapter {
             JSONObject cityJson = forecastJson.getJSONObject(OWM_CITY);
             String cityName = cityJson.getString(OWM_CITY_NAME);
 
+            // we store the city name in the prefs to display it as ActionBar title
+            Utility.setPreferredLocationName(getContext(),cityName);
+
             JSONObject cityCoord = cityJson.getJSONObject(OWM_COORD);
             double cityLatitude = cityCoord.getDouble(OWM_LATITUDE);
             double cityLongitude = cityCoord.getDouble(OWM_LONGITUDE);
@@ -219,7 +222,7 @@ public class SunshineSyncAdapter extends AbstractThreadedSyncAdapter {
             long locationId = addLocation(locationSetting, cityName, cityLatitude, cityLongitude);
 
             // Insert the new weather information into the database
-            Vector<ContentValues> cVVector = new Vector<ContentValues>(weatherArray.length());
+            Vector<ContentValues> cVVector = new Vector<>(weatherArray.length());
 
             // OWM returns daily forecasts based upon the local time of the city that is being
             // asked for, which means that we need to know the GMT offset to translate this data
@@ -292,7 +295,6 @@ public class SunshineSyncAdapter extends AbstractThreadedSyncAdapter {
                 cVVector.add(weatherValues);
             }
 
-            int inserted = 0;
             // add to database
             if ( cVVector.size() > 0 ) {
                 ContentValues[] cvArray = new ContentValues[cVVector.size()];
@@ -337,7 +339,7 @@ public class SunshineSyncAdapter extends AbstractThreadedSyncAdapter {
                 // we'll query our contentProvider, as always
                 Cursor cursor = context.getContentResolver().query(weatherUri, NOTIFY_WEATHER_PROJECTION, null, null, null);
 
-                if (cursor.moveToFirst()) {
+                if (cursor != null && cursor.moveToFirst()) {
                     int weatherId = cursor.getInt(INDEX_WEATHER_ID);
                     double high = cursor.getDouble(INDEX_MAX_TEMP);
                     double low = cursor.getDouble(INDEX_MIN_TEMP);
@@ -390,9 +392,10 @@ public class SunshineSyncAdapter extends AbstractThreadedSyncAdapter {
                     //refreshing last sync
                     SharedPreferences.Editor editor = prefs.edit();
                     editor.putLong(lastNotificationKey, System.currentTimeMillis());
-                    editor.commit();
+                    editor.apply();
                 }
-                cursor.close();
+                if (cursor != null)
+                    cursor.close();
             }
         }
     }
@@ -442,7 +445,9 @@ public class SunshineSyncAdapter extends AbstractThreadedSyncAdapter {
             locationId = ContentUris.parseId(insertedUri);
         }
 
-        locationCursor.close();
+        if (locationCursor != null)
+            locationCursor.close();
+
         // Wait, that worked?  Yes!
         return locationId;
     }

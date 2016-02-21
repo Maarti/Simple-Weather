@@ -21,6 +21,7 @@ import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.maarti.simpleweather.R;
 
@@ -91,7 +92,7 @@ public class MainActivity extends ActionBarActivity implements ForecastFragment.
     @Override
     protected void onResume() {
         super.onResume();
-        String location = Utility.getPreferredLocation( this );
+        String location = Utility.getPreferredLocation(this);
         // update the location in our second pane using the fragment manager
         if (location != null && !location.equals(mLocation)) {
             ForecastFragment ff = (ForecastFragment)getSupportFragmentManager().findFragmentById(R.id.fragment_forecast);
@@ -126,5 +127,13 @@ public class MainActivity extends ActionBarActivity implements ForecastFragment.
                     .setData(contentUri);
             startActivity(intent);
         }
+    }
+
+    /**
+     * If user click on "Select a location" that is displayed at the first launch of the app
+     * @param view
+     */
+    public void onClickSelectLocation(View view) {
+        startActivity(new Intent(this, SettingsActivity.class));
     }
 }

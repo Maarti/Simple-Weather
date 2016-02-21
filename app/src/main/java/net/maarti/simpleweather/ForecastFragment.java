@@ -32,6 +32,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.maarti.simpleweather.R;
 
@@ -83,6 +85,7 @@ public class ForecastFragment extends Fragment implements LoaderManager.LoaderCa
     static final int COL_WEATHER_CONDITION_ID = 6;
     static final int COL_COORD_LAT = 7;
     static final int COL_COORD_LONG = 8;
+
 
     /**
      * A callback interface that all activities containing this fragment must
@@ -137,44 +140,49 @@ public class ForecastFragment extends Fragment implements LoaderManager.LoaderCa
         // use it to populate the ListView it's attached to.
         mForecastAdapter = new ForecastAdapter(getActivity(), null, 0);
 
-        View rootView = inflater.inflate(R.layout.fragment_main, container, false);
+            View rootView = inflater.inflate(R.layout.fragment_main, container, false);
 
-        // Get a reference to the ListView, and attach this adapter to it.
-        mListView = (ListView) rootView.findViewById(R.id.listview_forecast);
-        mListView.setAdapter(mForecastAdapter);
-        // We'll call our MainActivity
-        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            // Get a reference to the ListView, and attach this adapter to it.
+            mListView = (ListView) rootView.findViewById(R.id.listview_forecast);
+            mListView.setAdapter(mForecastAdapter);
+            // We'll call our MainActivity
+            mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
-                // CursorAdapter returns a cursor at the correct position for getItem(), or null
-                // if it cannot seek to that position.
-                Cursor cursor = (Cursor) adapterView.getItemAtPosition(position);
-                if (cursor != null) {
-                    String locationSetting = Utility.getPreferredLocation(getActivity());
-                    ((Callback) getActivity())
-                            .onItemSelected(WeatherContract.WeatherEntry.buildWeatherLocationWithDate(
-                                    locationSetting, cursor.getLong(COL_WEATHER_DATE)
-                            ));
+                @Override
+                public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+                    // CursorAdapter returns a cursor at the correct position for getItem(), or null
+                    // if it cannot seek to that position.
+                    Cursor cursor = (Cursor) adapterView.getItemAtPosition(position);
+                    if (cursor != null) {
+                        String locationSetting = Utility.getPreferredLocation(getActivity());
+                        ((Callback) getActivity())
+                                .onItemSelected(WeatherContract.WeatherEntry.buildWeatherLocationWithDate(
+                                        locationSetting, cursor.getLong(COL_WEATHER_DATE)
+                                ));
+                    }
+                    mPosition = position;
                 }
-                mPosition = position;
+            });
+
+            // If there's instance state, mine it for useful information.
+            // The end-goal here is that the user never knows that turning their device sideways
+            // does crazy lifecycle related things.  It should feel like some stuff stretched out,
+            // or magically appeared to take advantage of room, but data or place in the app was never
+            // actually *lost*.
+            if (savedInstanceState != null && savedInstanceState.containsKey(SELECTED_KEY)) {
+                // The listview probably hasn't even been populated yet.  Actually perform the
+                // swapout in onLoadFinished.
+                mPosition = savedInstanceState.getInt(SELECTED_KEY);
             }
-        });
 
-        // If there's instance state, mine it for useful information.
-        // The end-goal here is that the user never knows that turning their device sideways
-        // does crazy lifecycle related things.  It should feel like some stuff stretched out,
-        // or magically appeared to take advantage of room, but data or place in the app was never
-        // actually *lost*.
-        if (savedInstanceState != null && savedInstanceState.containsKey(SELECTED_KEY)) {
-            // The listview probably hasn't even been populated yet.  Actually perform the
-            // swapout in onLoadFinished.
-            mPosition = savedInstanceState.getInt(SELECTED_KEY);
-        }
+            mForecastAdapter.setUseTodayLayout(mUseTodayLayout);
 
-        mForecastAdapter.setUseTodayLayout(mUseTodayLayout);
-
-        return rootView;
+            return rootView;
+        /*}else {
+            Toast.makeText(getActivity().getApplicationContext(), R.string.toast_must_enter_location, Toast.LENGTH_SHORT).show();
+            View rootView = inflater.inflate(R.layout.no_location, container, false);
+            return rootView;
+        }*/
     }
 
     @Override
@@ -199,7 +207,7 @@ public class ForecastFragment extends Fragment implements LoaderManager.LoaderCa
         // http://developer.android.com/guide/components/intents-common.html#Maps
         if ( null != mForecastAdapter ) {
             Cursor c = mForecastAdapter.getCursor();
-            if ( null != c ) {
+            if ( null != c && c.getCount() > 0 ) {
                 c.moveToPosition(0);
                 String posLat = c.getString(COL_COORD_LAT);
                 String posLong = c.getString(COL_COORD_LONG);
@@ -213,8 +221,8 @@ public class ForecastFragment extends Fragment implements LoaderManager.LoaderCa
                 } else {
                     Log.d(LOG_TAG, "Couldn't call " + geoLocation.toString() + ", no receiving apps installed!");
                 }
-            }
-
+            }else
+                Toast.makeText(getActivity().getApplicationContext(), R.string.toast_must_enter_location,Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -260,9 +268,9 @@ public class ForecastFragment extends Fragment implements LoaderManager.LoaderCa
             // to, do so now.
             mListView.smoothScrollToPosition(mPosition);
         }
-        // on affiche le nom de la ville retournée par l'API
+        // on affiche le nom de la ville retourne par l'API
         String locationName = Utility.getPreferredLocationName(getActivity().getApplicationContext());
-        getActivity().setTitle(locationName);
+        getActivity(). setTitle(locationName);
     }
 
     @Override
@@ -275,5 +283,17 @@ public class ForecastFragment extends Fragment implements LoaderManager.LoaderCa
         if (mForecastAdapter != null) {
             mForecastAdapter.setUseTodayLayout(mUseTodayLayout);
         }
+    }
+
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        String location = Utility.getPreferredLocation(getActivity().getApplicationContext());
+        TextView nolocation =(TextView) getActivity().findViewById(R.id.textViewNoLocation);
+        if (location.equals(getString(R.string.pref_location_default)))
+            nolocation.setVisibility(View.VISIBLE);
+        else
+            nolocation.setVisibility(View.GONE);
     }
 }

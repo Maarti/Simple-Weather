@@ -104,5 +104,6 @@
     <string name="west">W</string>
     <string name="north_west">NW</string>
     <string name="toast_must_enter_location">You must enter a location in the settings.</string>
+    <string name="toast_location_not_null">The location can\'t be empty</string>
 
 </resources>

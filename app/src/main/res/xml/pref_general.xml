@@ -10,7 +10,8 @@
         android:dialogMessage="@string/pref_location_dialogmsg"
         android:hint="London,UK"
         android:inputType="text"
-        android:singleLine="true" />
+        android:singleLine="true"
+        />
 
     <ListPreference
         android:title="@string/pref_units_label"

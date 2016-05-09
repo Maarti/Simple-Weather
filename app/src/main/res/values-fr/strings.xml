@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:xliff="http://schemas.android.com/apk/res-auto">
-    <string name="app_name">Simple Weather</string>
+    <string name="app_name">Météo Simple</string>
     <string name="north">N</string>
     <string name="north_east">NE</string>
     <string name="north_west">NO</string>
@@ -31,4 +31,5 @@
     <string name="tomorrow">Demain</string>
     <string name="unknown">Inconnu</string>
     <string name="west">O</string>
+    <string name="toast_location_not_null">L\'emplacement ne peut être vide</string>
 </resources>

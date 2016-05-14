@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Simple Weather</string>
+    <string name="app_name">Tiempo Simple</string>
     <string name="action_credits">Créditos</string>
     <string name="action_map">Ubicación en el mapa</string>
     <string name="action_settings">Ajustes</string>

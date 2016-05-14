@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:xliff="http://schemas.android.com/apk/res-auto">
     <string name="app_name">Tempo Semplice</string>
     <string name="action_credits">Credito</string>
     <string name="action_map">Posizione sulla mappa</string>
@@ -44,4 +44,5 @@
     <string name="unknown">Sconosciuto</string>
     <string name="website">Sito web</string>
     <string name="west">O</string>
+    <string name="forecasts">Previsioni</string>
 </resources>

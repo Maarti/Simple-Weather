@@ -44,4 +44,5 @@
     <string name="pref_language_label">Langue</string>
     <string name="special_thanks">Remerciements spéciaux à Katherine Kwan, Dan Gauthan, and Rado Mya pour leurs cours.</string>
     <string name="website">Site</string>
+    <string name="forecasts">Prévisions</string>
 </resources>

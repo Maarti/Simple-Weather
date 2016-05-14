@@ -123,5 +123,8 @@
     <string name="appImagesAuthorSiteUrl" translatable="false">http://d3stroy.deviantart.com/</string>
     <string name="special_thanks">Special thanks to Katherine Kwan, Dan Gauthan, and Rado Mya for their courses.</string>
     <string name="day_month_day_format">EEE MMM dd</string>
+    <string name="forecasts">Forecasts</string>
+    <string name="open_weather_map" translatable="false">OpenWeatherMap</string>
+    <string name="open_weather_url" translatable="false">http://openweathermap.org/</string>
 
 </resources>

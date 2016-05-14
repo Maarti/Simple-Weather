@@ -52,4 +52,11 @@ public class CreditsActivity extends ActionBarActivity {
         Intent webActivity = new Intent(Intent.ACTION_VIEW, uri);
         startActivity(webActivity);
     }
+
+    public void onClickOpenWeather(View view) {
+        String appSite = getString(R.string.open_weather_url);
+        Uri uri = Uri.parse(appSite);
+        Intent webActivity = new Intent(Intent.ACTION_VIEW, uri);
+        startActivity(webActivity);
+    }
 }

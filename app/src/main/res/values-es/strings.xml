@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Simple Weather</string>
+    <string name="action_credits">Créditos</string>
+    <string name="action_map">Ubicación en el mapa</string>
+    <string name="action_settings">Ajustes</string>
+    <string name="action_share">Compartir</string>
+    <string name="author">Autor</string>
+    <string name="contact">Contacto</string>
+    <string name="contactMailObject">Contactar con respecto a su aplicación</string>
+    <string name="day_month_day_format">EEE dd MMM</string>
+    <string name="east">E</string>
+    <string name="format_humidity">Humedad : <xliff:g id="humidity">%1.0f</xliff:g> %%</string>
+    <string name="format_notification">Pronóstico : <xliff:g id="condition">%1$s</xliff:g> High: <xliff:g id="high">%2$s</xliff:g> Low: <xliff:g id="low">%3$s</xliff:g></string>
+    <string name="format_pressure">Presión : <xliff:g id="pressure">%1.0f</xliff:g> hPa</string>
+    <string name="format_wind_kmh">Viento : <xliff:g id="speed">%1$1.0f</xliff:g> km/h <xliff:g id="direction">%2$s</xliff:g></string>
+    <string name="format_wind_mph">Viento : <xliff:g id="speed">%1$1.0f</xliff:g> mph <xliff:g id="direction">%2$s</xliff:g></string>
+    <string name="images_author">Autor imágenes</string>
+    <string name="month_day_format">dd MMMM</string>
+    <string name="north">N</string>
+    <string name="north_east">NE</string>
+    <string name="north_west">NO</string>
+    <string name="pref_enable_notifications_false">No activada</string>
+    <string name="pref_enable_notifications_label">Tiempo Notificaciones</string>
+    <string name="pref_enable_notifications_true">Habilitado</string>
+    <string name="pref_lang_summary">Config. dispositivo :</string>
+    <string name="pref_language_label">Idioma</string>
+    <string name="pref_location_dialogmsg">Introduzca su código postal o el nombre de la ciudad, seguido por el código de país (por ejemplo: "Paris, FR" - "94043, US" - "Madrid, ES").</string>
+    <string name="pref_location_label">Ubicación</string>
+    <string name="pref_units_label">Unidades de temperatura</string>
+    <string name="pref_units_label_imperial">Imperial</string>
+    <string name="pref_units_label_metric">Métrico</string>
+    <string name="south">S</string>
+    <string name="south_east">SE</string>
+    <string name="south_west">SO</string>
+    <string name="special_thanks">Un agradecimiento especial a Katherine Kwan, Dan Gauthan, y Rado Mya para sus cursos.</string>
+    <string name="title_activity_credits">Créditos</string>
+    <string name="title_activity_detail">Detalles</string>
+    <string name="title_activity_settings">Ajustes</string>
+    <string name="toast_location_not_null">La ubicación no puede estar vacía</string>
+    <string name="toast_must_enter_location">Debe introducir una ubicación en la configuración.</string>
+    <string name="today">Hoy</string>
+    <string name="tomorrow">Mañana</string>
+    <string name="unknown">Desconocido</string>
+    <string name="website">Sitio</string>
+    <string name="west">O</string>
+</resources>

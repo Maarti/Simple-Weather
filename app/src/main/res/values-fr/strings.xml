@@ -6,7 +6,6 @@
     <string name="north_west">NO</string>
     <string name="pref_enable_notifications_label">Notifications météo</string>
     <string name="action_map">Emplacement sur la carte</string>
-    <string name="action_refresh">Rafraîchir</string>
     <string name="action_settings">Paramètres</string>
     <string name="action_share">Partager</string>
     <string name="east">E</string>

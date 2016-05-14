@@ -136,4 +136,8 @@ public class MainActivity extends ActionBarActivity implements ForecastFragment.
     public void onClickSelectLocation(View view) {
         startActivity(new Intent(this, SettingsActivity.class));
     }
+
+    public void onClickCredits(MenuItem item) {
+        startActivity(new Intent(this, CreditsActivity.class));
+    }
 }

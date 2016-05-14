@@ -32,4 +32,17 @@
     <string name="unknown">Inconnu</string>
     <string name="west">O</string>
     <string name="toast_location_not_null">L\'emplacement ne peut être vide</string>
+    <string name="action_credits">Crédits</string>
+    <string name="month_day_format">dd MMMM</string>
+    <string name="title_activity_credits">Crédits</string>
+    <string name="author">Auteur</string>
+    <string name="contact">Contact</string>
+    <string name="pref_enable_notifications_false">Désactivées</string>
+    <string name="contactMailObject">Contact à propose de votre application</string>
+    <string name="day_month_day_format">EEE dd MMM</string>
+    <string name="images_author">Auteur des images</string>
+    <string name="pref_lang_summary">Param. appareil :</string>
+    <string name="pref_language_label">Langue</string>
+    <string name="special_thanks">Remerciements spéciaux à Katherine Kwan, Dan Gauthan, and Rado Mya pour leurs cours.</string>
+    <string name="website">Site</string>
 </resources>

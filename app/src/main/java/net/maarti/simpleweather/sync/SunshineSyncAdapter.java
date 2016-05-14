@@ -44,6 +44,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.Calendar;
 import java.util.Vector;
 
 public class SunshineSyncAdapter extends AbstractThreadedSyncAdapter {
@@ -94,6 +95,7 @@ public class SunshineSyncAdapter extends AbstractThreadedSyncAdapter {
 
         String format = "json";
         String units = "metric";
+        String userLang = Utility.getUserLang()[0];
         int numDays = 14;
 
         try {
@@ -107,17 +109,19 @@ public class SunshineSyncAdapter extends AbstractThreadedSyncAdapter {
             final String UNITS_PARAM = "units";
             final String DAYS_PARAM = "cnt";
             final String APPID_PARAM = "APPID";
+            final String LANG_PARAM = "lang";
 
             Uri builtUri = Uri.parse(FORECAST_BASE_URL).buildUpon()
                     .appendQueryParameter(QUERY_PARAM, locationQuery)
                     .appendQueryParameter(FORMAT_PARAM, format)
                     .appendQueryParameter(UNITS_PARAM, units)
                     .appendQueryParameter(DAYS_PARAM, Integer.toString(numDays))
+                    .appendQueryParameter(LANG_PARAM,userLang)      // on injecte le langage de l'utilisateur dans la requete
                     .appendQueryParameter(APPID_PARAM, BuildConfig.OPEN_WEATHER_MAP_API_KEY)
                     .build();
 
             URL url = new URL(builtUri.toString());
-
+            //Log.d(LOG_TAG, "REQUEST : " + builtUri.toString());
             // Create the request to OpenWeatherMap, and open the connection
             urlConnection = (HttpURLConnection) url.openConnection();
             urlConnection.setRequestMethod("GET");
@@ -145,6 +149,7 @@ public class SunshineSyncAdapter extends AbstractThreadedSyncAdapter {
                 return;
             }
             forecastJsonStr = buffer.toString();
+           // Log.d(LOG_TAG, "RESPONSE : " + forecastJsonStr);
             getWeatherDataFromJson(forecastJsonStr, locationQuery);
         } catch (IOException e) {
             Log.e(LOG_TAG, "Error ", e);
@@ -207,7 +212,8 @@ public class SunshineSyncAdapter extends AbstractThreadedSyncAdapter {
         final String OWM_MIN = "min";
 
         final String OWM_WEATHER = "weather";
-        final String OWM_DESCRIPTION = "main";
+        //final String OWM_DESCRIPTION = "main";
+        final String OWM_DESCRIPTION = "description";
         final String OWM_WEATHER_ID = "id";
 
         try {
@@ -276,6 +282,8 @@ public class SunshineSyncAdapter extends AbstractThreadedSyncAdapter {
                 JSONObject weatherObject =
                         dayForecast.getJSONArray(OWM_WEATHER).getJSONObject(0);
                 description = weatherObject.getString(OWM_DESCRIPTION);
+                // Capitilize first letter
+                description = description.substring(0,1).toUpperCase() + description.substring(1);
                 weatherId = weatherObject.getInt(OWM_WEATHER_ID);
 
                 // Temperatures are in a child object called "temp".  Try not to name variables
@@ -333,9 +341,15 @@ public class SunshineSyncAdapter extends AbstractThreadedSyncAdapter {
         if ( displayNotifications ) {
 
             String lastNotificationKey = context.getString(R.string.pref_last_notification);
-            long lastSync = prefs.getLong(lastNotificationKey, 0);
+            //long lastSync = prefs.getLong(lastNotificationKey, 0);
+            int lastSyncDay = prefs.getInt(lastNotificationKey,0);
+            int today = Calendar.getInstance().get(Calendar.DAY_OF_YEAR);
 
-            if (System.currentTimeMillis() - lastSync >= DAY_IN_MILLIS) {
+            // Modif pour ne pas envoyer de notification 24h apres la derniere notif mais
+            // pour envoyer la notif lors de la premiere syncro de la journee
+
+            //if (System. currentTimeMillis() - lastSync >= DAY_IN_MILLIS) {
+            if (today != lastSyncDay) {
             //if(true){
                 // Last sync was more than 1 day ago, let's send a notification with the weather.
                 String locationQuery = Utility.getPreferredLocation(context);
@@ -397,7 +411,8 @@ public class SunshineSyncAdapter extends AbstractThreadedSyncAdapter {
 
                     //refreshing last sync
                     SharedPreferences.Editor editor = prefs.edit();
-                    editor.putLong(lastNotificationKey, System.currentTimeMillis());
+                    //editor.putLong(lastNotificationKey, System.currentTimeMillis());
+                    editor.putInt(lastNotificationKey, today);
                     editor.apply();
                 }
                 if (cursor != null)

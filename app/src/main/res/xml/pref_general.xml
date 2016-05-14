@@ -27,4 +27,9 @@
         android:summaryOn="@string/pref_enable_notifications_true"
         android:defaultValue="@string/pref_enable_notifications_default" />
 
+    <EditTextPreference
+        android:title="@string/pref_language_label"
+        android:key="@string/pref_language_key"
+        android:enabled="false"/>
+
 </PreferenceScreen>

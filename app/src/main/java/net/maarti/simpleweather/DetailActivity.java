@@ -66,4 +66,8 @@ public class DetailActivity extends ActionBarActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+
+    public void onClickCredits(MenuItem item) {
+        startActivity(new Intent(this, CreditsActivity.class));
+    }
 }

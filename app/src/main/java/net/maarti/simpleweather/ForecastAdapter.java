@@ -99,6 +99,7 @@ public class ForecastAdapter extends CursorAdapter {
 
         // Read weather forecast from cursor
         String description = cursor.getString(ForecastFragment.COL_WEATHER_DESC);
+
         // Find TextView and set weather forecast on it
         viewHolder.descriptionView.setText(description);
 

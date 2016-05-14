@@ -49,6 +49,9 @@ public class SettingsActivity extends PreferenceActivity
         bindPreferenceSummaryToValue(findPreference(getString(R.string.pref_location_key)));
         bindPreferenceSummaryToValue(findPreference(getString(R.string.pref_units_key)));
 
+        // Set lang summary to the device language
+        Preference langPref = findPreference(getString(R.string.pref_language_key));
+        langPref.setSummary(getString(R.string.pref_lang_summary)+" "+Utility.getUserLang()[1]);
     }
 
     /**

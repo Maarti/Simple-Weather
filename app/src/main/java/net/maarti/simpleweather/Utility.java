@@ -25,6 +25,7 @@ import com.maarti.simpleweather.R;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 
 public class Utility {
 
@@ -45,7 +46,7 @@ public class Utility {
     // Set the city name returned by the API corresponding of the prefered location
     public static String getPreferredLocationName(Context context) {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
-        return prefs.getString(PREF_CITYNAME_KEY,"");
+        return prefs.getString(PREF_CITYNAME_KEY, "");
     }
 
     // Get the city name returned by the API corresponding of the prefered location
@@ -112,7 +113,7 @@ public class Utility {
             return getDayName(context, dateInMillis);
         } else {
             // Otherwise, use the form "Mon Jun 3"
-            SimpleDateFormat shortenedDateFormat = new SimpleDateFormat("EEE MMM dd");
+            SimpleDateFormat shortenedDateFormat = new SimpleDateFormat(context.getString(R.string.day_month_day_format));
             String formatted = shortenedDateFormat.format(dateInMillis);
             // First letter uppercase
             return formatted.substring(0, 1).toUpperCase() + formatted.substring(1) ;
@@ -160,10 +161,19 @@ public class Utility {
     public static String getFormattedMonthDay(Context context, long dateInMillis ) {
         Time time = new Time();
         time.setToNow();
-        SimpleDateFormat dbDateFormat = new SimpleDateFormat(Utility.DATE_FORMAT);
-        SimpleDateFormat monthDayFormat = new SimpleDateFormat("MMMM dd");
+        //SimpleDateFormat dbDateFormat = new SimpleDateFormat(Utility.DATE_FORMAT);
+        SimpleDateFormat monthDayFormat = new SimpleDateFormat(context.getString(R.string.month_day_format));
         String monthDayString = monthDayFormat.format(dateInMillis);
-        return monthDayString.substring(0, 1).toUpperCase() + monthDayString.substring(1);
+        String monthDayUpperCase = "";
+        String[] split = monthDayString.split("\\s+");
+        for (String str : split){
+            if (monthDayUpperCase.equals(""))
+                monthDayUpperCase += str.substring(0,1).toUpperCase() + str.substring(1);
+            else
+                monthDayUpperCase += " " + str.substring(0,1).toUpperCase() + str.substring(1);
+        }
+        //return monthDayString.substring(0, 1).toUpperCase() + monthDayString.substring(1);
+        return monthDayUpperCase;
     }
 
     public static String getFormattedWind(Context context, float windSpeed, float degrees) {
@@ -267,5 +277,12 @@ public class Utility {
             return R.drawable.art_clouds;
         }
         return -1;
+    }
+
+    public static String[] getUserLang() {
+        String[] lang = new String[2];
+        lang[0] = Locale.getDefault().getLanguage();
+        lang[1] = Locale.getDefault().getDisplayName();
+        return lang;
     }
 }

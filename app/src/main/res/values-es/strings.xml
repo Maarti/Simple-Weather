@@ -45,4 +45,5 @@
     <string name="website">Sitio</string>
     <string name="west">O</string>
     <string name="forecasts">Previsiones</string>
+    <string name="select_location">Seleccionar una ubicación</string>
 </resources>
